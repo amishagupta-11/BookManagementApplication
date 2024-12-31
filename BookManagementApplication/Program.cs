@@ -61,7 +61,10 @@ namespace BookManagementApplication
         {
             try
             {
-                var books = db.Books.Include(b => b.AuthorBooks).ThenInclude(ba => ba.Author).ToList();
+                var books = db.Books
+                    .Include(b => b.AuthorBooks)
+                        .ThenInclude(ab => ab.Author)
+                    .ToList();
                 return Results.Ok(books);
             }
             catch (Exception ex)
@@ -69,6 +72,7 @@ namespace BookManagementApplication
                 return Results.BadRequest($"Error fetching books: {ex.Message}");
             }
         }
+
 
         /// <summary>
         /// method to fetch data by id of books.
